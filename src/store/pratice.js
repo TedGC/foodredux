@@ -4,3 +4,8 @@ function countFrequency(arr) {
         return acc;
     }, {});
 }
+
+
+function isAnagram(a, b) {
+    return a.split('').sort().join('') === b.split('').sort().join('');
+}
