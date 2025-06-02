@@ -43,3 +43,14 @@ const imageToBuffer = (imagePath) => {
 };
 
 const imgBuffer = imageToBuffer('./images/pic.jpg');
+
+
+async function imageUrlToBuffer(url) {
+    const res = await fetch(url);
+    const blob = await res.blob();
+    const arrayBuffer = await blob.arrayBuffer();
+    console.log(arrayBuffer); // Uint8Array view can be created if needed
+    return arrayBuffer;
+}
+
+imageUrlToBuffer('https://example.com/image.jpg');
