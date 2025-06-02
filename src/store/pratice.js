@@ -66,3 +66,11 @@ document.querySelector('input[type="file"]').addEventListener('change', (e) => {
     };
 
     reader.readAsArrayBuffer(file);
+
+
+
+    function isPalindrome(str) {
+        return str === str.split('').reverse().join('');
+    }
+
+    console.log(isPalindrome("racecar")); // true
