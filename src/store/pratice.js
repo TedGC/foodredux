@@ -15,3 +15,8 @@ function flatten(arr) {
     return arr.reduce((flat, toFlatten) =>
         flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten), []);
 }
+
+
+function longestWord(str) {
+    return str.split(' ').reduce((a, b) => a.length > b.length ? a : b);
+}
