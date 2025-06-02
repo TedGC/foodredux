@@ -25,3 +25,10 @@ function longestWord(str) {
 function range(start, end) {
     return Array.from({ length: end - start + 1 }, (_, i) => start + i);
 }
+
+
+function isPalindrome(str) {
+    return str === str.split('').reverse().join('');
+}
+
+console.log(isPalindrome("racecar")); // true
