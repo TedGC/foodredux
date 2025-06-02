@@ -20,3 +20,8 @@ function flatten(arr) {
 function longestWord(str) {
     return str.split(' ').reduce((a, b) => a.length > b.length ? a : b);
 }
+
+
+function range(start, end) {
+    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+}
