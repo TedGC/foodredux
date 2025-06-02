@@ -54,3 +54,15 @@ async function imageUrlToBuffer(url) {
 }
 
 imageUrlToBuffer('https://example.com/image.jpg');
+
+
+document.querySelector('input[type="file"]').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+        const arrayBuffer = event.target.result;
+        console.log(arrayBuffer); // You can wrap this in a Uint8Array
+    };
+
+    reader.readAsArrayBuffer(file);
