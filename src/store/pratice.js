@@ -32,3 +32,14 @@ function isPalindrome(str) {
 }
 
 console.log(isPalindrome("racecar")); // true
+
+
+const fs = require('fs');
+
+const imageToBuffer = (imagePath) => {
+    const buffer = fs.readFileSync(imagePath);
+    console.log(buffer); // <Buffer ... >
+    return buffer;
+};
+
+const imgBuffer = imageToBuffer('./images/pic.jpg');
