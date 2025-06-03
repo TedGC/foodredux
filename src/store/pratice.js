@@ -1,71 +1,37 @@
-function countFrequency(arr) {
-    return arr.reduce((acc, val) => {
-        acc[val] = (acc[val] || 0) + 1;
-        return acc;
-    }, {});
+
+export async function action({ request }) {
+    const searchParams = new URL(request.url).searchParams
+    const mode = searchParams.get('mode') || 'login'
+
+    if (mode !== 'login' || mode !== 'singup') {
+        throw json({ message: 'something went wrong' }, { status: 422 })
+    }
+
+    const data = await request.formData()
+    const authData = {
+        email: data.get('email'),
+        password: data.get('password')
+    }
+
+    const response = await fetch('http://localhost:8000/' + mode, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(authData)
+    })
+
+    if (response.status === 422 || response.status === 404) {
+        return response
+    }
+
+    if (!response.ok) {
+        throw json({ message: 'soemthign went wrong dude' }, { status: 500 })
+    }
+
+    const resData = await response.json()
+    const token = resData.token
+
+    localStorage.setItem('token', token)
+    const expiration = new Date()
+    localStorage.setHours(expiration.getHours() + 1)
+    localStorage.setItem('expiration', expiration.toString())
 }
-
-
-function isAnagram(a, b) {
-    return a.split('').sort().join('') === b.split('').sort().join('');
-}
-
-
-function flatten(arr) {
-    return arr.reduce((flat, toFlatten) =>
-        flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten), []);
-}
-
-
-function longestWord(str) {
-    return str.split(' ').reduce((a, b) => a.length > b.length ? a : b);
-}
-
-
-function range(start, end) {
-    return Array.from({ length: end - start + 1 }, (_, i) => start + i);
-}
-
-
-function isPalindrome(str) {
-    return str === str.split('').reverse().join('');
-}
-
-console.log(isPalindrome("racecar")); // true
-
-
-const fs = require('fs');
-
-const imageToBuffer = (imagePath) => {
-    const buffer = fs.readFileSync(imagePath);
-    console.log(buffer); // <Buffer ... >
-    return buffer;
-};
-
-const imgBuffer = imageToBuffer('./images/pic.jpg');
-
-
-async function imageUrlToBuffer(url) {
-    const res = await fetch(url);
-    const blob = await res.blob();
-    const arrayBuffer = await blob.arrayBuffer();
-    console.log(arrayBuffer); // Uint8Array view can be created if needed
-    return arrayBuffer;
-}
-
-imageUrlToBuffer('https://example.com/image.jpg');
-
-
-document.querySelector('input[type="file"]').addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onload = function (event) {
-        const arrayBuffer = event.target.result;
-        console.log(arrayBuffer); // You can wrap this in a Uint8Array
-    };
-
-    reader.readAsArrayBuffer(file);
-
-
-//
