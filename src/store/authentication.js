@@ -27,7 +27,7 @@ function checkAuthMiddleWare(req, res, next) {
         return next(new NotAuthError('not found'))
     }
 
-    const authFragments = red.headers.authorization.split('.')
+    const authFragments = req.headers.authorization.split('.')
 
     if (authFragments !== 2) {
         return next(new NotAuthError('not found'))
