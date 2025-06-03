@@ -19,5 +19,21 @@ async function add(data) {
     }
 
     storedData.users.push({ ...data, id: userId, password: hashedPw })
-    const
+    await writeData(storedData)
+    return ({ email, id: userId, password: hashedPw })
+}
+
+async function get(email) {
+    const storedData = await readData()
+    if (!storedData.users || storedData.users.length === 0) {
+        throw new NotFoundError('could not find the user')
+    }
+
+    const user = storedData.users.find(ev => ev.email === email)
+    if (!user) {
+        throw new NotFoundError('could not find the user')
+    }
+
+    return user
+
 }
