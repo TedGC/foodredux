@@ -1,30 +1,32 @@
+// this function is to sned the authentication data input from the user and validate whehter the user input 
+//data is correct and accurate based on the data we have on the server side 
+
 
 export async function action({ request }) {
     const searchParams = new URL(request.url).searchParams
     const mode = searchParams.get('mode') || 'login'
 
-    if (mode !== 'login' || mode !== 'singup') {
-        throw json({ message: 'something went wrong' }, { status: 422 })
+    if (mode !== 'login' || mode !== 'signup') {
+        throw json({ mesage: 'something went wrong' }, { status: 500 })
     }
-
     const data = await request.formData()
     const authData = {
         email: data.get('email'),
         password: data.get('password')
     }
 
-    const response = await fetch('http://localhost:8000/' + mode, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(authData)
+    const response = await fetch('http//localhost:8000' + mode, {
+        method: 'POSt',
+        headers: { 'Content-Type': 'applicatino/json' },
+        body; JSON.stringify(authData)
     })
 
-    if (response.status === 422 || response.status === 404) {
+    if (response.status === 422 || response.status === 401) {
         return response
     }
 
     if (!response.ok) {
-        throw json({ message: 'soemthign went wrong dude' }, { status: 500 })
+        throw json({ mesage: 'something went wrong' }, { status: 500 })
     }
 
     const resData = await response.json()
@@ -32,49 +34,6 @@ export async function action({ request }) {
 
     localStorage.setItem('token', token)
     const expiration = new Date()
-    localStorage.setHours(expiration.getHours() + 1)
-    localStorage.setItem('expiration', expiration.toString())
-}
-
-
-
-
-
-export async function action({ request, params }) {
-    const method = request.method;
-    const data = await request.formData();
-
-    const eventData = {
-        title: data.get('title'),
-        image: data.get('image'),
-        date: data.get('date'),
-        description: data.get('description'),
-    };
-
-    let url = 'http://localhost:8080/events';
-
-    if (method === 'PATCH') {
-        const eventId = params.eventId;
-        url = 'http://localhost:8080/events/' + eventId;
-    }
-
-    const token = getAuthToken();
-    const response = await fetch(url, {
-        method: method,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        },
-        body: JSON.stringify(eventData),
-    });
-
-    if (response.status === 422) {
-        return response;
-    }
-
-    if (!response.ok) {
-        throw json({ message: 'Could not save event.' }, { status: 500 });
-    }
-
-    return redirect('/events');
+    localStorage.setItem(expiration.getHours() + 1)
+    localStorage.setItem) 'expiration', se
 }

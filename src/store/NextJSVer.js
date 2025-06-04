@@ -8,7 +8,7 @@ const db = sql('meals.db')
 
 export async function getMeasl() {
 
-    await new Promsie((resolve) => setTimeout(resolve, 5000))
+    await new Promise((resolve) => setTimeout(resolve, 5000))
 
     return db.prepare('SELECT * FROM meals').all()
 }
