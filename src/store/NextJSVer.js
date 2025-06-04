@@ -18,9 +18,12 @@ export async function getMeal(slug) {
     return db.prepare('SELECT * FROM meals WHERE slug = ?').get(slug)
 }
 
+// the purpose of this function is to build a briadge between the buffered iamge iamge and integrate it into
+// the fileanme specified for each folder defined by 'slug' in NextJS 
+// this is naother feature from NodeJs but also usable in NextJS as it wa sbuilt on top of NodeJs using React
 
 export async function saveMeals(meal) {
-
+    // these are additional features to add values to the function as security measures 
     meal.slug = slugify(meal.title, { lower: true })
     meal.descriptions = xss(meal.descriptions)
 
