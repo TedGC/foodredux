@@ -51,3 +51,12 @@ function memoize(fn) {
 // Usage
 const slowAdd = (a, b) => a + b;
 const fastAdd = memoize(slowAdd);
+
+function deepClone(obj) {
+    if (typeof obj !== 'object' || obj === null) return obj;
+    const clone = Array.isArray(obj) ? [] : {};
+    for (const key in obj) {
+        clone[key] = deepClone(obj[key]);
+    }
+    return clone;
+}
