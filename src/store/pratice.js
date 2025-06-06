@@ -90,3 +90,14 @@ async function asyncQueue(tasks, concurrency = 2) {
     await Promise.all(workers);
     return results;
 }
+
+function flattenObject(obj, prefix = '', res = {}) {
+    for (const key in obj) {
+        const value = obj[key];
+        const newKey = prefix ? `${prefix}.${key}` : key;
+        typeof value === 'object' && value !== null
+            ? flattenObject(value, newKey, res)
+            : res[newKey] = value;
+    }
+    return res;
+}
