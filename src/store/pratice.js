@@ -141,3 +141,12 @@ class LRUCache {
         this.cache.set(key, val);
     }
 }
+
+
+function groupBy(array, key) {
+    return array.reduce((acc, item) => {
+        const group = item[key];
+        (acc[group] = acc[group] || []).push(item);
+        return acc;
+    }, {});
+}
