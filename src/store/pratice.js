@@ -74,3 +74,19 @@ function curry(fn) {
 const add = (a, b, c) => a + b + c;
 const curriedAdd = curry(add);
 console.log(curriedAdd(1)(2)(3)); // 6
+
+
+async function asyncQueue(tasks, concurrency = 2) {
+    const results = [];
+    const queue = [...tasks];
+    const workers = Array(concurrency).fill(Promise.resolve());
+
+    while (queue.length) {
+        const task = queue.shift();
+        const workerIndex = await Promise.race(workers.map((p, i) => p.then(() => i)));
+        workers[workerIndex] = task().then(res => results.push(res));
+    }
+
+    await Promise.all(workers);
+    return results;
+}
