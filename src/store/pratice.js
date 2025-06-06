@@ -111,3 +111,12 @@ async function retry(fn, retries = 3, delay = 1000) {
         return retry(fn, retries - 1, delay);
     }
 }
+
+function* range(start, end, step = 1) {
+    for (let i = start; i <= end; i += step) {
+        yield i;
+    }
+}
+
+// Usage
+for (const num of range(1, 5)) console.log(num);
