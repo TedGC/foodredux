@@ -266,3 +266,16 @@ const FancyInput = forwardRef((_, ref) => {
     }));
     return <input ref={inputRef} />;
 });
+
+
+
+// app/posts/[id]/page.tsx
+export async function generateMetadata({ params }) {
+    const post = await fetchPost(params.id);
+    return { title: post.title };
+}
+
+export default async function PostPage({ params }) {
+    const post = await fetchPost(params.id);
+    return <div>{post.content}</div>;
+}
