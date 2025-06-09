@@ -187,6 +187,11 @@ const Search = () => {
         });
     };
 
+
     return (
-      <>
+        <>
             <input onChange={handleChange} />
+            {isPending && <p>Loading...</p>}
+        </>
+    );
+};
