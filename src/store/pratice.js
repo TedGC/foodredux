@@ -224,3 +224,13 @@ const Signup = () => {
         </>
     );
 };
+
+const LazyComp = React.lazy(() => import('./HeavyComponent'));
+
+export default function App() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <LazyComp />
+        </Suspense>
+    );
+}
