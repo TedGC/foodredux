@@ -195,3 +195,10 @@ const Search = () => {
         </>
     );
 };
+
+
+const ExpensiveList = ({ filter }) => {
+    const deferredFilter = useDeferredValue(filter);
+    const filtered = useMemo(() => hugeData.filter(item => item.includes(deferredFilter)), [deferredFilter]);
+    return filtered.map(i => <div key={i}>{i}</div>);
+};
