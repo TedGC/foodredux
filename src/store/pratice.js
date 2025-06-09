@@ -202,3 +202,15 @@ const ExpensiveList = ({ filter }) => {
     const filtered = useMemo(() => hugeData.filter(item => item.includes(deferredFilter)), [deferredFilter]);
     return filtered.map(i => <div key={i}>{i}</div>);
 };
+
+function useLocalStorage(key, initial) {
+    const [value, setValue] = useState(() => {
+        return JSON.parse(localStorage.getItem(key)) || initial;
+    });
+
+    useEffect(() => {
+        localStorage.setItem(key, JSON.stringify(value));
+    }, [key, value]);
+
+    return [value, setValue];
+}
