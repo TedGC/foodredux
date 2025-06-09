@@ -214,3 +214,13 @@ function useLocalStorage(key, initial) {
 
     return [value, setValue];
 }
+
+const Signup = () => {
+    const id = useId();
+    return (
+        <>
+            <label htmlFor={id}>Email</label>
+            <input id={id} type="email" />
+        </>
+    );
+};
