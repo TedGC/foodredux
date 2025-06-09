@@ -175,3 +175,18 @@ const ContactForm = () => {
         </form>
     );
 };
+
+const Search = () => {
+    const [input, setInput] = useState('');
+    const [isPending, startTransition] = useTransition();
+
+    const handleChange = (e) => {
+        const value = e.target.value;
+        startTransition(() => {
+            setInput(value);
+        });
+    };
+
+    return (
+      <>
+            <input onChange={handleChange} />
