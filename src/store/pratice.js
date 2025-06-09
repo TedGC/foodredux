@@ -250,3 +250,10 @@ const Button = () => {
     const { dark, toggle } = useContext(ThemeContext);
     return <button onClick={toggle}>{dark ? 'Dark' : 'Light'}</button>;
 };
+
+
+function useToggle(initial = false) {
+    const [value, setValue] = useState(initial);
+    const toggle = () => setValue(v => !v);
+    return [value, toggle];
+}
