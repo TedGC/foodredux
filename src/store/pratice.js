@@ -257,3 +257,12 @@ function useToggle(initial = false) {
     const toggle = () => setValue(v => !v);
     return [value, toggle];
 }
+
+
+const FancyInput = forwardRef((_, ref) => {
+    const inputRef = useRef();
+    useImperativeHandle(ref, () => ({
+        focus: () => inputRef.current.focus(),
+    }));
+    return <input ref={inputRef} />;
+});
