@@ -160,3 +160,18 @@ function debounceAsync(fn, delay) {
         });
     };
 }
+
+const ContactForm = () => {
+    const [form, setForm] = useState({ name: '', email: '' });
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    return (
+        <form>
+            <input name="name" value={form.name} onChange={handleChange} />
+            <input name="email" value={form.email} onChange={handleChange} />
+        </form>
+    );
+};
