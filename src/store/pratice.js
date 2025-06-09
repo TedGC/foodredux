@@ -234,3 +234,19 @@ export default function App() {
         </Suspense>
     );
 }
+
+const ThemeContext = createContext();
+
+const ThemeProvider = ({ children }) => {
+    const [dark, setDark] = useState(false);
+    return (
+        <ThemeContext.Provider value={{ dark, toggle: () => setDark(d => !d) }}>
+            {children}
+        </ThemeContext.Provider>
+    );
+};
+
+const Button = () => {
+    const { dark, toggle } = useContext(ThemeContext);
+    return <button onClick={toggle}>{dark ? 'Dark' : 'Light'}</button>;
+};
